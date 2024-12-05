@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9d8d8;
+    height: 100vh;
+}
+
+/* flexbox kartinām, bez šī nav centrā */
+.card-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 80px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 50%;
+    height: 460px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card .image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.card:hover .image-container img {
+    transform: scale(1.2);
+}
+
+.card .read-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card .read-btn:hover {
+    background-color: #044a95;
+    transform: scale(1.05);
+}
+
+/* Navigčacijas joslas komponenti, salabot burgera izvēlni!!! */
+.navigacija {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #333, #939393);
+    padding: 15px 30px;
+    color: white;
+    position: relative;
+}
+
+.navigacija .logo h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 60px;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #575757;
+    transition: ease-in-out 0.4s;
+}
+
+.nav-links a i {
+    vertical-align: 2px;
+    margin-right: 8px;
+}
+
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    list-style-type: none;
+    padding: 10px 0;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.nav-links .dropdown-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 20px;
+    width: 150px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.nav-links .dropdown-menu li a:hover {
+    background-color: #575757;
+}
+
+.nav-links .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.navigacija .hamburger {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    left: 15px;
+    top: 20px;
+    cursor: grab;
+    z-index: 9999;
+    width: 40px;
+    height: 15px;
+    
+}
+
+.hamburger div {
+    width: 30px;
+    height: 40px;
+    background-color: #fff;
+}
+
+
+
+/* Viss priekš modālajiem logiem, kas atveras ar pogu ieks kartiņām */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: 1000; 
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%; 
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    font-size: 30px;
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.open-modal-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.open-modal-btn:hover {
+    background-color: #044a95;
+    transform: scale(1.05);
+}
+
+
+/* Dark mode krāsas un izvietojums, kad nospiez to pogu */
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+.navigacija.dark-mode {
+    background: linear-gradient(to right, #333, #555);
+}
+
+.card.dark-mode {
+    background-color: #333;
+    color: rgb(0, 0, 0);
+}
+
+.card.dark-mode h3, .card.dark-mode p {
+    color: #ddd;
+}
+
+.card .read-btn.dark-mode,
+.card .open-modal-btn.dark-mode {
+    background-color: #444;
+    color: white;
+}
+
+.card .read-btn.dark-mode:hover,
+.card .open-modal-btn.dark-mode:hover {
+    background-color: #666;
+}
+
+/**/
+
+
+/* Navigacijas joslas slepsana, kad nospiests hamburgeris, jāpielabo!!! */
+.navigacija .nav-links, 
+.navigacija .logo {
+    display: flex;
+    gap: 20px;
+}
+
+.navigacija.active {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, rgba(51, 51, 51, 0), rgba(147, 147, 147, 0));
+    padding: 15px 30px;
+    color: white;
+    position: relative;
+}
+
+
+
+.navigacija.active .nav-links,
+.navigacija.active .logo {
+    display: none;
+}
+
+/* Priekš mobilajām ierīcēm un +/- strādā arī ja samazina display window platumu uz datora */
+@media (max-width: 780px) {
+      .navigacija {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Lai navigacijas lietas izvietotas vertikali, nedzēst!!! */
+        padding: 15px 0;
+    }
+
+    .navigacija .logo h2 {
+        font-size: 30px; 
+        margin-bottom: 20px;
+        margin-left: 0px;
+    }
+
+    .nav-links {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        padding: 0;
+        width: 100%;
+    }
+
+    .nav-links li {
+        display: block;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+    .nav-links a:hover {
+        background-color: #575757;
+        transition: ease-in-out 0.4s;
+    }
+
+    .card-container-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: auto;
+        padding-top: 50px;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap; /* Jāatstāj, nez */
+        padding: 20px;
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 90%;
+        height: auto; 
+        padding: 20px;
+        margin: 10px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.6s ease, box-shadow 0.6s ease;
+    }
+
+    .card h3 {
+        font-size: 16px; 
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .card .read-btn,
+    .card .open-modal-btn {
+        width: 100%; 
+        padding: 12px;
+    }
+
+    .card .image-container {
+        height: 300px;
+    }
+
+    .card img {
+        object-fit: cover;
+    }
+}
